@@ -1,5 +1,5 @@
 import { template } from './report_list.container.tpl';
-import { IReport, ReportService } from '../../shared/services/report.service';
+import { IReportConfig, ReportService } from '../../shared/services/report.service';
 
 export const reportListContainer: ng.IComponentOptions = {
 	bindings: {},
@@ -18,6 +18,6 @@ export const reportListContainer: ng.IComponentOptions = {
 				});
 		}
 
-		public list: Array<IReport>;
+		public list: Array<IReportConfig>;
 	}
 };

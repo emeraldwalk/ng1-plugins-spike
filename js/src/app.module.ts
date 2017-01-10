@@ -2,8 +2,8 @@ import * as angular from 'angular';
 import { IStateProvider } from 'angular-ui-router';
 import { appContainer } from './app.container';
 import { reportListContainer } from './reporting/containers/report_list/report_list.container';
-import { transactionReport } from './reporting/containers/reports/transaction_report/transaction_report.container';
-import { IReport, registerReport, ReportService } from './reporting/shared/services/report.service';
+import { transactionReportConfig } from './reporting/containers/reports/transaction_report/transaction_report.config';
+import { IReportConfig, registerReport, ReportService } from './reporting/shared/services/report.service';
 
 export let appModule = angular.module('app.module', ['ui.router']);
 
@@ -13,13 +13,12 @@ appModule
 	.component('appContainer', appContainer)
 	.component('reportList', reportListContainer);
 
-const reports: Array<IReport> = [
-	transactionReport
+const reports: Array<IReportConfig> = [
+	transactionReportConfig
 ];
 
 reports.forEach(report => {
-	registerReport(report);
-	appModule.component(report.id, report.component);
+	registerReport(appModule, report);
 });
 
 appModule.config(($stateProvider: IStateProvider) => {
@@ -55,15 +54,31 @@ appModule.config(($stateProvider: IStateProvider) => {
 			},
 			views: {
 				'sidebar': {
-					template: 'Report Sidebar'
-				},
-				'main': {
-					templateProvider: ($stateParams: { id: string }) => {
+					templateProvider: (
+						$stateParams: { id: string },
+						reportService: ReportService) => {
+
 						let id = $stateParams.id;
-						if(!id) {
+						if (!id) {
 							return '';
 						}
-						return `<${id}></${id}>`;
+
+						let selector = reportService.listReports().filter(rpt => rpt.id === id)[0].controls.selector;
+						return `<${selector}></${selector}>`;
+					}
+				},
+				'main': {
+					templateProvider: (
+						$stateParams: { id: string },
+						reportService: ReportService) => {
+
+						let id = $stateParams.id;
+						if (!id) {
+							return '';
+						}
+
+						let selector = reportService.listReports().filter(rpt => rpt.id === id)[0].main.selector;
+						return `<${selector}></${selector}>`;
 					}
 				}
 			}
