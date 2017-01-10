@@ -1,0 +1,29 @@
+{
+  "name": "ng1-plugins-spike",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "webpack-dev-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.0.0-beta.17",
+    "ts-node": "^2.0.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "@types/angular": "^1.5.23",
+    "@types/angular-ui-router": "^1.1.36",
+    "@types/node": "^6.0.58",
+    "@types/webpack": "^2.1.0",
+    "angular": "^1.6.1",
+    "angular-ui-router": "^0.3.2",
+    "bootstrap": "^4.0.0-alpha.6",
+    "rxjs": "^5.0.3"
+  }
+}
